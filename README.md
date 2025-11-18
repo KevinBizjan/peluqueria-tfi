@@ -1,1 +1,6 @@
 # peluqueria-tfi
+El sistema permite administrar una peluquería gestionando clientes, empleados, servicios y turnos. Se podrán registrar clientes, dar de alta empleados (barberos y estilistas), definir los servicios ofrecidos y agendar turnos entre clientes y empleados.
+El sistema ofrece operaciones de búsqueda, modificación, eliminación y listado para cada tipo de entidad. También incluye funcionalidades adicionales como calcular los ingresos diarios, listar turnos por empleado, y mostrar los servicios más solicitados.
+El programa utiliza programación estructurada, arrays, manejo de Strings, colecciones del Java Collections Framework, herencia, polimorfismo, interfaces, lambdas, Comparator, métodos de referencia y un TAD propio para guardar el historial de acciones.
+Se implementan validaciones, manejo de excepciones con try–catch–finally y una excepción personalizada. El menú se ejecuta de forma recursiva hasta que el usuario decida salir.
+Toda la interacción se realiza mediante consola, cumpliendo con todos los requisitos especificados en el Trabajo Práctico Integrador.
