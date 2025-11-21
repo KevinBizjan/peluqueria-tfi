@@ -1,14 +1,6 @@
 package app.menus;
 
 import exceptions.ElementoNoEncontradoException;
-import model.Cliente;
-import model.Empleado;
-import model.Servicio;
-import services.ClienteService;
-import services.EmpleadoService;
-import services.ServicioService;
-import services.TurnoService;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,6 +8,13 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 import java.util.stream.IntStream;
+import model.Cliente;
+import model.Empleado;
+import model.Servicio;
+import services.ClienteService;
+import services.EmpleadoService;
+import services.ServicioService;
+import services.TurnoService;
 
 public class MenuTurnos {
 
@@ -74,54 +73,46 @@ public class MenuTurnos {
     }
 
     private void crearTurno() {
-        System.out.println("\n-- Crear Turno --");
-
-        // Cliente
-        String q = leerString("Buscar cliente por DNI o nombre: ");
-        Cliente cliente = buscarCliente(q);
-
-        if (cliente == null) {
-            System.out.println("No se encontró cliente.");
-            return;
-        }
-
-        // Servicio
-        List<Servicio> servicios = servicioService.listarServicios();
-        System.out.println("Seleccione servicio:");
-        IntStream.range(0, servicios.size())
-                .forEach(i -> System.out.println((i + 1) + ". " + servicios.get(i)));
-        Servicio servicio = servicios.get(leerInt("Opción: ") - 1);
-
-        // Empleado
-        List<Empleado> empleados = empleadoService.listarEmpleados();
-        System.out.println("Seleccione empleado:");
-        IntStream.range(0, empleados.size())
-                .forEach(i -> System.out.println((i + 1) + ". " + empleados.get(i)));
-        Empleado empleado = empleados.get(leerInt("Opción: ") - 1);
-
-        // Fecha y hora
-        LocalDateTime fechaHora;
         try {
-            fechaHora = LocalDateTime.parse(
+            System.out.println("\n-- Crear Turno --");
+
+            String q = leerString("Buscar cliente por DNI o nombre: ");
+            Cliente cliente = buscarCliente(q);
+
+            if (cliente == null) {
+                System.out.println("No se encontró cliente.");
+                return;
+            }
+
+            List<Servicio> servicios = servicioService.listarServicios();
+            System.out.println("Seleccione servicio:");
+            IntStream.range(0, servicios.size())
+                    .forEach(i -> System.out.println((i + 1) + ". " + servicios.get(i)));
+            Servicio servicio = servicios.get(leerInt("Opción: ") - 1);
+
+            List<Empleado> empleados = empleadoService.listarEmpleados();
+            System.out.println("Seleccione empleado:");
+            IntStream.range(0, empleados.size())
+                    .forEach(i -> System.out.println((i + 1) + ". " + empleados.get(i)));
+            Empleado empleado = empleados.get(leerInt("Opción: ") - 1);
+
+            LocalDateTime fechaHora = LocalDateTime.parse(
                     leerString("Fecha y hora (dd/MM/yyyy HH:mm): "),
                     FECHA_HORA
             );
-        } catch (Exception e) {
-            System.out.println("Formato inválido.");
-            return;
+
+            String id = "T" + UUID.randomUUID().toString().substring(0, 6);
+            turnoService.registrarTurno(id, cliente, empleado, servicio, fechaHora);
+
+            System.out.println("Turno creado: " + id);
+
+        } catch (exceptions.TurnoNoDisponibleException ex) {
+            System.out.println(" " + ex.getMessage());
+        } catch (ElementoNoEncontradoException | IllegalArgumentException ex) {
+            System.out.println("Error: " + ex.getMessage());
         }
-
-        // Disponibilidad
-        if (!turnoService.estaDisponible(empleado.getId(), fechaHora)) {
-            System.out.println("Empleado no disponible.");
-            return;
-        }
-
-        String id = "T" + UUID.randomUUID().toString().substring(0, 6);
-        turnoService.registrarTurno(id, cliente, empleado, servicio, fechaHora);
-
-        System.out.println("Turno creado: " + id);
     }
+
 
     private Cliente buscarCliente(String q) {
         if (q.matches("\\d+")) {

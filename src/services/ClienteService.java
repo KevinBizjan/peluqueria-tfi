@@ -1,6 +1,6 @@
 package services;
 
-import exceptions.ElementoNoEncontradoException;
+import exceptions.ClienteDuplicadoException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Cliente;
@@ -10,13 +10,14 @@ public class ClienteService {
     private final List<Cliente> clientes = new ArrayList<>();
 
     public void agregarCliente(Cliente c) {
-        // Validar que no exista mismo DNI
+        // Validar duplicado por DNI
         boolean existe = clientes.stream()
                 .anyMatch(x -> x.getDni().equals(c.getDni()));
-
-        if (existe)
-            throw new IllegalArgumentException("Ya existe un cliente con ese DNI");
-
+        if (existe) {
+            throw new ClienteDuplicadoException(
+                    "Ya existe un cliente con DNI: " + c.getDni()
+            );
+        }
         clientes.add(c);
     }
 
@@ -25,7 +26,7 @@ public class ClienteService {
                 .filter(c -> c.getDni().equals(dni))
                 .findFirst()
                 .orElseThrow(() ->
-                        new ElementoNoEncontradoException("Cliente no encontrado"));
+                        new ClienteDuplicadoException("Cliente no encontrado"));
     }
 
     public List<Cliente> buscarPorNombre(String nombre) {

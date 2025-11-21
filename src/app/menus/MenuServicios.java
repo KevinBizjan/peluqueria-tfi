@@ -1,10 +1,10 @@
 package app.menus;
 
 import exceptions.ElementoNoEncontradoException;
+import exceptions.ServicioInvalidoException;
+import java.util.Scanner;
 import model.Servicio;
 import services.ServicioService;
-
-import java.util.Scanner;
 
 public class MenuServicios {
 
@@ -41,7 +41,7 @@ public class MenuServicios {
                     case 0 -> {}
                     default -> System.out.println("Opción inválida.");
                 }
-            } catch (ElementoNoEncontradoException | IllegalArgumentException ex) {
+            } catch (ElementoNoEncontradoException | IllegalArgumentException | ServicioInvalidoException ex) {
                 System.out.println("Error: " + ex.getMessage());
             }
 

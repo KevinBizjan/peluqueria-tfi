@@ -1,10 +1,9 @@
 package app.menus;
 
-import model.Empleado;
-import services.EmpleadoService;
-
 import java.util.Scanner;
 import java.util.UUID;
+import model.Empleado;
+import services.EmpleadoService;
 
 public class MenuEmpleados {
 
@@ -43,19 +42,32 @@ public class MenuEmpleados {
     }
 
     private void agregar() {
-        String id = "E" + UUID.randomUUID().toString().substring(0, 6);
-        String nombre = leerString("Nombre: ");
-        String tipo = leerString("Tipo (Barbero/Estilista): ");
+        try {
+            String id = "E" + UUID.randomUUID().toString().substring(0, 6);
+            String nombre = leerString("Nombre: ");
+            String tipo = leerString("Tipo (Barbero/Estilista): ");
 
-        Empleado e = empleadoService.crearEmpleado(id, nombre, tipo);
+            Empleado e = empleadoService.crearEmpleado(id, nombre, tipo);
 
-        System.out.println("Empleado creado: " + e);
+            System.out.println("Empleado creado: " + e);
+
+        } catch (exceptions.EmpleadoNoEncontradoException ex) {
+            System.out.println(" " + ex.getMessage());
+        } catch (IllegalArgumentException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
     }
 
     private void buscar() {
         String id = leerString("ID: ");
-        System.out.println(empleadoService.buscarPorId(id));
+        try {
+            System.out.println(empleadoService.buscarPorId(id));
+        } catch (exceptions.EmpleadoNoEncontradoException ex) {
+            System.out.println("⚠ " + ex.getMessage());
+        }
     }
+
+
 
     private String leerString(String txt) {
         System.out.print(txt);

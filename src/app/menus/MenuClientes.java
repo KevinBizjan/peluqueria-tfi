@@ -1,11 +1,9 @@
 package app.menus;
 
-import exceptions.ElementoNoEncontradoException;
-import model.Cliente;
-import services.ClienteService;
-
 import java.util.List;
 import java.util.Scanner;
+import model.Cliente;
+import services.ClienteService;
 
 public class MenuClientes {
 
@@ -41,10 +39,11 @@ public class MenuClientes {
                     case 0 -> {}
                     default -> System.out.println("Opción inválida.");
                 }
-            } catch (ElementoNoEncontradoException | IllegalArgumentException ex) {
+            } catch (exceptions.ClienteDuplicadoException ex) {
+                System.out.println(" " + ex.getMessage());
+            } catch (IllegalArgumentException ex) {
                 System.out.println("Error: " + ex.getMessage());
             }
-
         } while (op != 0);
     }
 
