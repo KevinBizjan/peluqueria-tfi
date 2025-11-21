@@ -78,7 +78,7 @@ public class MenuEmpleados {
         try {
             System.out.println(empleadoService.buscarPorId(id));
         } catch (exceptions.EmpleadoNoEncontradoException ex) {
-            System.out.println("⚠ " + ex.getMessage());
+            System.out.println(" " + ex.getMessage());
         }
     }
 

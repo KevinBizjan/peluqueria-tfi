@@ -1,3 +1,12 @@
+/**
+ * Servicio de administración de empleados.
+ * Permite crear empleados, buscarlos y modificarlos.
+ *
+ * <p>Incluye validación de especialidades.</p>
+ *
+ * @author Thomas
+ */
+
 package services;
 
 import exceptions.EmpleadoNoEncontradoException;

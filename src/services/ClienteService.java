@@ -1,3 +1,12 @@
+/**
+ * Servicio encargado de gestionar clientes.
+ * Permite agregar, buscar, modificar y eliminar clientes.
+ *
+ * <p>Incluye validaciones de DNI duplicado.</p>
+ *
+ * @author Thomas
+ */
+
 package services;
 
 import exceptions.ClienteDuplicadoException;

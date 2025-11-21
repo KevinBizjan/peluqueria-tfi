@@ -1,3 +1,12 @@
+/**
+ * Servicio principal de gestión de turnos.
+ * Encargado de registrar turnos, validar disponibilidad,
+ * cancelar y finalizar turnos.
+ *
+ * <p>También permite generar reportes por día o empleado.</p>
+ *
+ * @author Thomas
+ */
 package services;
 
 import exceptions.TurnoNoDisponibleException;
