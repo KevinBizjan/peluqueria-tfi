@@ -23,9 +23,6 @@ public class Main {
         EmpleadoService empleadoService = new EmpleadoService();
         TurnoService turnoService = new TurnoService();
 
-        // ============================
-        // Cargar datos desde JSON
-        // ============================
         PersistenciaArchivo.cargarTodo(
                 clienteService,
                 servicioService,
@@ -55,7 +52,6 @@ public class Main {
                 default -> System.out.println("Opción inválida.");
             }
 
-            // Guardar cambios en JSON SIEMPRE que pase una vuelta
             PersistenciaArchivo.guardarTodo(
                     clienteService,
                     servicioService,

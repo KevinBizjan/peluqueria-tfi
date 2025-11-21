@@ -1,5 +1,6 @@
 package services;
 
+import exceptions.TurnoNoDisponibleException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,6 +24,11 @@ public class TurnoService {
                                Servicio servicio,
                                LocalDateTime fechaHora) {
         Turno t = new Turno(id, cliente, empleado, servicio, fechaHora);
+        if (!estaDisponible(empleado.getId(), fechaHora)) {
+            throw new TurnoNoDisponibleException(
+                    "El empleado " + empleado.getNombre() + " no está disponible en ese horario."
+            );
+        }
         turnos.add(t);
     }
 

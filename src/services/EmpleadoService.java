@@ -1,6 +1,6 @@
 package services;
 
-import exceptions.ElementoNoEncontradoException;
+import exceptions.EmpleadoNoEncontradoException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Barbero;
@@ -19,7 +19,8 @@ public class EmpleadoService {
         return empleados.stream()
                 .filter(e -> e.getId().equalsIgnoreCase(id))
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() ->
+                new EmpleadoNoEncontradoException("No existe empleado con ID: " + id));
     }
 
     public Empleado crearEmpleado(String id, String nombre, String tipo) {
@@ -37,15 +38,16 @@ public class EmpleadoService {
 
     public void modificar(String id, String nuevoNombre, String nuevaEspecialidad) {
         Empleado e = buscarPorId(id);
-
-        if (e == null)
-            throw new ElementoNoEncontradoException("Empleado no encontrado");
-
-        if (nuevoNombre != null && !nuevoNombre.isBlank()) e.setNombre(nuevoNombre);
-        if (nuevaEspecialidad != null && !nuevaEspecialidad.isBlank()) e.setEspecialidad(nuevaEspecialidad);
+        if (nuevoNombre != null && !nuevoNombre.isBlank()) {
+            e.setNombre(nuevoNombre);
+        }
+        if (nuevaEspecialidad != null && !nuevaEspecialidad.isBlank()) {
+            e.setEspecialidad(nuevaEspecialidad);
+        }
     }
 
     public boolean eliminar(String id) {
+        buscarPorId(id);
         return empleados.removeIf(e -> e.getId().equalsIgnoreCase(id));
     }
 }
