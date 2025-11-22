@@ -11,6 +11,7 @@ El objetivo fue desarrollar un sistema completo para la administración de una p
 El diseño se enfocó en lograr código claro, modular y fácil de mantener, respetando buenas prácticas de programación vistas en la cursada.
 
 Tecnologías utilizadas:
+GitHub
 Java 21
 Persistencia en JSON mediante clases propias (sin bases de datos)
 POO: herencia, polimorfismo, composición
@@ -18,116 +19,18 @@ Colecciones Java
 Validaciones y excepciones personalizadas
 VS Code + extensiones de Java
 
-Estructura del proyecto:
-peluqueria-tfi/
-│
-├── src/
-│   ├── app/               # Menús y clase Main
-│   ├── model/             # Clases del dominio (Cliente, Empleado, Servicio, Turno...)
-│   ├── services/          # Lógica del negocio
-│   ├── exceptions/        # Excepciones personalizadas
-│   ├── repo/              # Persistencia en archivos JSON
-│   └── util/              # Utilidades generales
-│
-├── data/                  # Archivos JSON generados automáticamente
-│
-└── README.md
 
 Persistencia
-Todo el sistema se guarda en archivos JSON ubicados en la carpeta /data, incluyendo:
-clientes.json
-empleados.json
-servicios.json
-turnos.json
+Todo el sistema se guarda en archivos JSON ubicados en la carpeta /data.
 La carga y el guardado son automáticos cada vez que se inicia o cierra la aplicación. Esto permite que toda la información permanezca disponible entre ejecuciones.
 
-El sistema implementa distintas excepciones para mejorar la robustez:
-ClienteDuplicadoException
-ServicioInvalidoException
-EmpleadoNoEncontradoException
-TurnoNoDisponibleException
-ElementoNoEncontradoException
+El sistema implementa distintas excepciones para mejorar la robustez.
 
 Todas son manejadas desde los menús para evitar caídas del programa y mostrar mensajes claros al usuario.
 
-Manual de Usuario – Sistema de Gestión de Peluquería Fullstack
+Manual de Usuario – Sistema de Gestión de Peluquería Fullstack (LEER PDF)
 Este sistema funciona íntegramente por consola y permite gestionar clientes, empleados, servicios y turnos de una peluquería.
-A continuación se detallan los pasos para utilizarlo correctamente.
 
-Inicio del programa
-Al ejecutar el sistema aparece el menú principal:
-
-PELUQUERÍA FULLSTACK – MENÚ PRINCIPAL
-1. Gestión de clientes
-2. Gestión de servicios
-3. Gestión de empleados
-4. Gestión de turnos
-5. Reportes
-0. Salir
-El usuario debe ingresar un número del 0 al 5.
-
- 1. Gestión de Clientes
-Permite:
-Agregar un cliente
-Buscar por DNI
-Buscar por nombre
-Modificar datos
-Eliminar
-Listar todos
-
-Validaciones:
-DNI numérico
-Teléfono numérico
-Campos obligatorios
-
-2. Gestión de Servicios
-Incluye:
-Crear servicios (nombre, precio, duración)
-Editar
-Buscar
-Eliminar
-Listar
-
-Validaciones:
-Precio mayor a 0
-Duración mayor a 0 minutos
-
-3. Gestión de Empleados
-Permite:
-Crear empleado (Barbero / Estilista)
-Buscar por ID
-Listar todos
-Validaciones:
-El tipo debe ser “Barbero” o “Estilista”
-Nombre obligatorio
-
-4. Gestión de Turnos
-Funciones:
-Crear turno
-Cancelar
-Finalizar
-Listar por fecha
-Listar por empleado
-Listar todos
-
-Validaciones:
-Fecha futura
-Cliente existente
-Servicio existente
-Empleado existente
-Empleado disponible en ese horario
-Uso de excepciones personalizadas
-
-5. Reportes
-Disponible:
-Ingresos del día
-Turnos pendientes
-Turnos realizados
-Ranking de servicios más vendidos
-Ingresos por empleado
-Horas trabajadas
-
-Incluye persistencia automática.
 Al cerrar o cambiar de menú, el sistema guarda la información en archivos JSON:
 clientes.json
 empleados.json
@@ -140,7 +43,6 @@ Usar formato: dd/MM/yyyy HH:mm para turnos
 Si se ingresa un dato inválido, el sistema mostrará un mensaje claro
 Se puede usar sin perder datos gracias a la persistencia
 
-Fin del Manual de Usuario
 
 El trabajo fue realizado de forma colaborativa mediante control de versiones y ramas individuales.
 
